@@ -1,0 +1,100 @@
+<!--<p>You can bind our <code>NgbPagination</code> component with slicing the data list</p> -->
+<!-- <h4 class="modal-title" id="modal-basic-title">Clothing store</h4> -->
+<link rel="stylesheet" href="clothings.component.css">
+<button class="btn btn-primary" (click)="open(content)">Agregar</button>
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">Garment_name</th>
+			<th scope="col">Color</th>
+			<th scope="col">Size</th>
+			<th scope="col">Year</th>
+			<th scope="col">Size</th>
+			<th scope="col">Price</th>
+			<th scope="col">Brand</th>
+			<th scope="col">Type</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr *ngFor="let clothing of clothings">
+			<th scope="row">{{ clothing.id }}</th>
+
+			<td>{{ clothing.garment_name}}</td>
+			<td>{{ clothing.color}}</td>
+			<td>{{ clothing.size}}</td>
+			<td>{{ clothing.year}}</td>
+			<td>{{ clothing.size}}</td>
+			<td>{{ clothing.price}}</td>
+			<td>{{ clothing.brand}}</td>
+			<td>{{ clothing.type}}</td>
+			<td><button class="btn btn-success" (click)="loadClothing(clothing,content)">Edit</button></td>
+			<td><button class="btn btn-danger" (click)="showWindowDelete(clothing)">Eliminar</button></td>
+		</tr>
+	</tbody>
+</table>
+
+<div class="d-flex justify-content-between p-2">
+	<ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize"
+		(pageChange)="consultarClothings()">
+	</ngb-pagination>
+
+	<select class="form-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="consultarClothings()">
+		<option [ngValue]="2">2 items per page</option>
+		<option [ngValue]="6">6 items per page</option>
+		<option [ngValue]="9">9 items per page</option>
+	</select>
+</div>
+
+<ng-template #content let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Form of clothings</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+
+	<form #formClothing="ngForm" (ngSubmit)="saveClothing(formClothing?.value)">
+		<div class="modal-body">
+			
+			<div class="form-group">
+				<label for="txtGarment">Garment *</label>
+				<input id="txtGarment" name="garment_name" class="form-control" [(ngModel)]="clothing.garment_name" #garment="ngModel">
+			</div>
+
+			<div class="form-group">
+				<label for="txtColor">Color *</label>
+				<input id="txtColor" name="color" class="form-control" [(ngModel)]="clothing.color" #color="ngModel">
+			</div>
+
+			<div class="form-group">
+				<label for="txtSize">Size *</label>
+				<input id="txtSize" name="size" class="form-control" [(ngModel)]="clothing.size" #size="ngModel">
+			</div>
+
+			<div class="form-group">
+				<label for="txtYear">Year *</label>
+				<input id="txtYear" type="number" name="year" class="form-control" [(ngModel)]="clothing.year" #year="ngModel">
+			</div>
+
+			<div class="form-group">
+				<label for="txtPrice">Price *</label>
+				<input id="txtPrice" type="number" name="price" class="form-control" [(ngModel)]="clothing.price" #price="ngModel">
+			</div>
+
+			<div class="form-group">
+				<label for="txtBrand">Brand *</label>
+				<input id="txtBrand" name="brand" class="form-control" [(ngModel)]="clothing.brand" #brand="ngModel">
+			</div>
+
+			<div class="form-group">
+				<label for="txtType">Type *</label>
+				<input id="txtType" name="type" class="form-control" [(ngModel)]="clothing.type" #type="ngModel">
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button type="submit" class="btn btn-primary">Save</button>
+			<button type="button" class="btn btn-danger" (click)="modal.close()">Cancel</button>
+		</div>
+	</form>
+</ng-template>
+
+<!--Este es un cambio-->
