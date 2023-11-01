@@ -11,8 +11,14 @@ import Swal from 'sweetalert2';
   styleUrls: ['./clothings.component.css']
 })
 export class ClothingsComponent implements OnInit {
-  modalReference: NgbModalRef;
 
+  lbl_men: string = "Se_elimina_";
+  lbl_are_you: string = "Are_you_sure_"
+  lbl_clothing_delete: string = "clothing_delete_"
+  lbl_confirm: string = "confirm_"
+
+
+  modalReference: NgbModalRef;
   page = 1;
   pageSize = 6;
   collectionSize = 0;
@@ -115,8 +121,9 @@ export class ClothingsComponent implements OnInit {
    */
   showWindowDelete(clothing: Clothing) {
     Swal.fire({
-      title:"Confirm",
-      text: `Are you sure clothing delete ${clothing.garment_name}?`,
+      title:this.lbl_confirm,
+      text: this.lbl_are_you +' '+ this.lbl_clothing_delete,
+      //text: `Are you sure clothing delete ${clothing.garment_name}?`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
