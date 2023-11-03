@@ -56,8 +56,11 @@
 		<div class="modal-body">
 			
 			<div class="form-group">
-				<label for="txtGarment">Garment *</label>
-				<input id="txtGarment" name="garment_name" class="form-control" [(ngModel)]="clothing.garment_name" #garment="ngModel">
+				<label for="garment_name">Garment *</label>
+				<input id="txtGarment" name="garment_name" class="form-control" 
+				[(ngModel)]="clothing.garment_name" #garment="ngModel"
+				type="text" pInputText id="garment_name" [(ngModel)]="clothing.garment_name" required autofocus />
+				<small class="p-error" *ngIf="submitted && !clothing.garment_name">Name is required.</small>
 			</div>
 
 			<div class="form-group">
@@ -92,7 +95,7 @@
 		</div>
 		<div class="modal-footer">
 			<button type="submit" class="btn btn-primary">Save</button>
-			<button type="button" class="btn btn-danger" (click)="modal.close()">Cancel</button>
+			<button type="button" class="btn btn-danger" *ngIf="submitted && !clothing.garment_name" (click)="modal.close()">Cancel</button>
 		</div>
 	</form>
 </ng-template>

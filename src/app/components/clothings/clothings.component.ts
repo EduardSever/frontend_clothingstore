@@ -12,10 +12,13 @@ import Swal from 'sweetalert2';
 })
 export class ClothingsComponent implements OnInit {
 
+  submitted: boolean;
+
   lbl_men: string = "Se_elimina_";
   lbl_are_you: string = "Are_you_sure_"
   lbl_clothing_delete: string = "clothing_delete_"
   lbl_confirm: string = "confirm_"
+  lbl_mensaje: string = "No existe precio"
 
 
   modalReference: NgbModalRef;
@@ -62,6 +65,8 @@ export class ClothingsComponent implements OnInit {
    * @param content 
    */
   open(content: any) {
+
+    this.submitted = false;
     this.modalReference = this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' });
     this.modalReference.result.then((result) => {
       //this.closeResult = `Closed with: ${result}`;
@@ -75,6 +80,8 @@ export class ClothingsComponent implements OnInit {
    * @param clothingSelected clothing o objeto selecionado por el usuario.
    */
   loadClothing(clothingSelected: Clothing, content: any) {
+
+    this.submitted = false;
     this.clothing = new Clothing();
     this.clothing.id = clothingSelected.id;
     this.clothing.garment_name = clothingSelected.garment_name;
@@ -92,8 +99,9 @@ export class ClothingsComponent implements OnInit {
    * @param data información de los campos capurados en el formulario.
    */
   saveClothing(data: any) {
-
-    if (!this.clothing.id) {
+    this.submitted = true;
+    if (!this.clothing.garment_name.trim()) {
+      //if (this.clothing.garment_name) {
       this.clothing = new Clothing();
       // this.clothing.id=data.id;
       this.clothing.garment_name = data.garment_name;
@@ -114,15 +122,19 @@ export class ClothingsComponent implements OnInit {
         this.consultarClothings();
       })
     }
+  // if (this.clothing.price && this.clothing.price.trim() !== '') {
+      //console.log(this.lbl_mensaje);
+    //}
   }
   /**
    * Metodo que permite eliminar un registro.
    * @param Clothing 
    */
   showWindowDelete(clothing: Clothing) {
+    this.submitted = false;
     Swal.fire({
-      title:this.lbl_confirm,
-      text: this.lbl_are_you +' '+ this.lbl_clothing_delete,
+      title: this.lbl_confirm,
+      text: this.lbl_are_you + ' ' + this.lbl_clothing_delete,
       //text: `Are you sure clothing delete ${clothing.garment_name}?`,
       icon: 'warning',
       showCancelButton: true,
@@ -139,7 +151,7 @@ export class ClothingsComponent implements OnInit {
             'Deleted!',
             `Your clothing has been deleted.`,
             'success'
-            )
+          )
         });
       }
     })
