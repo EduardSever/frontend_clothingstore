@@ -53,7 +53,7 @@ export class ClothingsComponent implements OnInit {
     this.clothingsService.cunsultarClothings().subscribe(response => {
       console.log(response);
       this.clothings = response;
-      this.collectionSize = this.clothings.length;
+      //this.collectionSize = this.clothings.length;
 
       this.clothings = this.clothings
         .map((clothing, i) => ({ counter: i + 1, ...clothing }))
@@ -80,7 +80,6 @@ export class ClothingsComponent implements OnInit {
    * @param clothingSelected clothing o objeto selecionado por el usuario.
    */
   loadClothing(clothingSelected: Clothing, content: any) {
-
     this.submitted = false;
     this.clothing = new Clothing();
     this.clothing.id = clothingSelected.id;
