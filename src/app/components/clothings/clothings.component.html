@@ -19,8 +19,9 @@
 	<tbody>
 		<tr *ngFor="let clothing of clothings">
 			<th scope="row">{{ clothing.id }}</th>
-
-			<td>{{ clothing.garment_name}}</td>
+			<td>{{ clothing.garment_name}}
+				<img src="./assets/short.png" height="50" width="50">
+			</td>
 			<td>{{ clothing.color}}</td>
 			<td>{{ clothing.size}}</td>
 			<td>{{ clothing.year}}</td>
@@ -54,12 +55,12 @@
 
 	<form #formClothing="ngForm" (ngSubmit)="saveClothing(formClothing?.value)">
 		<div class="modal-body">
-			
+
 			<div class="form-group">
 				<label for="garment_name">Garment *</label>
-				<input id="txtGarment" name="garment_name" class="form-control" 
-				[(ngModel)]="clothing.garment_name" #garment="ngModel"
-				type="text" pInputText id="garment_name" [(ngModel)]="clothing.garment_name" required autofocus />
+				<input id="txtGarment" name="garment_name" class="form-control" [(ngModel)]="clothing.garment_name"
+					#garment="ngModel" type="text" pInputText id="garment_name" [(ngModel)]="clothing.garment_name"
+					required autofocus />
 				<small class="p-error" *ngIf="submitted && !clothing.garment_name">Name is required.</small>
 			</div>
 
@@ -75,12 +76,14 @@
 
 			<div class="form-group">
 				<label for="txtYear">Year *</label>
-				<input id="txtYear" type="number" name="year" class="form-control" [(ngModel)]="clothing.year" #year="ngModel">
+				<input id="txtYear" type="number" name="year" class="form-control" [(ngModel)]="clothing.year"
+					#year="ngModel">
 			</div>
 
 			<div class="form-group">
 				<label for="txtPrice">Price *</label>
-				<input id="txtPrice" type="number" name="price" class="form-control" [(ngModel)]="clothing.price" #price="ngModel">
+				<input id="txtPrice" type="number" name="price" class="form-control" [(ngModel)]="clothing.price"
+					#price="ngModel">
 			</div>
 
 			<div class="form-group">
@@ -92,10 +95,14 @@
 				<label for="txtType">Type *</label>
 				<input id="txtType" name="type" class="form-control" [(ngModel)]="clothing.type" #type="ngModel">
 			</div>
+			<div class="icon">
+				<img class="image" alt="bimtrazer-logo" src="assets/images/short.png" />
+			</div>
 		</div>
 		<div class="modal-footer">
 			<button type="submit" class="btn btn-primary">Save</button>
-			<button type="button" class="btn btn-danger" *ngIf="submitted && !clothing.garment_name" (click)="modal.close()">Cancel</button>
+			<button type="button" class="btn btn-danger" *ngIf="submitted && !clothing.garment_name"
+				(click)="modal.close()">Cancel</button>
 		</div>
 	</form>
 </ng-template>
